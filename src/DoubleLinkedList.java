@@ -1,5 +1,6 @@
-public class DoubleLinkedList<T>
-{
+import java.io.IOException;
+
+public class DoubleLinkedList<T> {
     Node<T> head;
     Node<T> tail;
     int count;
@@ -83,6 +84,68 @@ public class DoubleLinkedList<T>
         Node tmp = new Node(cur.data, cur.next, cur);
         cur.data = el;
         cur.next = tmp;
+        count++;
+    }
+
+    public void Remove(T el)
+    {
+
+            Node cur = head;
+            while (cur != null && cur.data != el) {
+
+                cur = cur.next;
+            }
+           if (cur == null) System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
+               Node prevtmp = cur.prev;
+               Node nexttmp = cur.next;
+               //System.out.println(prevtmp.data)
+               if (prevtmp != null && nexttmp != null) {
+                   prevtmp.next = nexttmp;
+                   nexttmp.prev = prevtmp;
+                   System.out.println("case1");
+               }
+               if (prevtmp == null) {
+                   //prevtmp.next = nexttmp;
+                   nexttmp.prev = null;
+                   head = nexttmp;
+                   System.out.println("case2");
+               }
+               if (nexttmp == null) {
+                   //prevtmp.next = nexttmp;
+                   prevtmp.next = null;
+                   System.out.println("case3");
+               }
+               count--;
+           }
+    }
+
+    public void RemoveAt(int index)
+    {
+        int i = 0;
+        Node cur = head;
+        while (cur != null && i!=index) {
+            i++;
+
+            cur = cur.next;
+        }
+        if (cur == null) System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
+            Node prevtmp = cur.prev;
+            Node nexttmp = cur.next;
+            if (prevtmp != null && nexttmp != null) {
+                prevtmp.next = nexttmp;
+                nexttmp.prev = prevtmp;
+            }
+            if (prevtmp == null) {
+                //prevtmp.next = nexttmp;
+                nexttmp.prev = null;
+                head = nexttmp;
+            }
+            if (nexttmp == null) {
+                //prevtmp.next = nexttmp;
+                prevtmp.next = null;
+            }
+            count--;
+        }
     }
 
 }
