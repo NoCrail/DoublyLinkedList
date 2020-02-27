@@ -50,13 +50,16 @@ public class DoubleLinkedList<T> {
         return false;
     }
 
-    public void PrintForward(){
-
+    public String PrintForward()
+    {
+        String s="";
         Node tmp = head;
         while(tmp != null){
-            System.out.println(tmp.data);
+            s+=tmp.data+" ";
+            //System.out.println(tmp.data);
             tmp = tmp.next;
         }
+        return s;
     }
 
     public int IndexOf(T el)
