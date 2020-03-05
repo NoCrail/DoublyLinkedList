@@ -1,24 +1,25 @@
-import java.io.IOException;
 
-public class DoubleLinkedList<T> {
-    Node<T> head;
-    Node<T> tail;
-    int count;
+public class DoubleLinkedList<T>  {
+    private class Node<T> {
+        private T data;
+        private Node<T> next;
+        private Node<T> prev;
 
-    /*public void Add(T data)
-    {
-        Node<T> node = new Node<T>(data);
-
-        if(head == null)
-            head = node;
-        else
+        public Node(T in, Node<T> next, Node<T> prev)
         {
-            tail.next = node;
-            node.prev = tail;
+            data = in;
+            this.next = next;
+            this.prev = prev;
         }
-        tail = node;
-        count++;
-    }*/
+
+
+    }
+
+
+    private Node<T> head;
+    private Node<T> tail;
+    private int count;
+
 
     public void Clear()
     {
@@ -32,12 +33,20 @@ public class DoubleLinkedList<T> {
     public boolean isEmpty() { return count == 0; }
 
     public void Add(T el)       //AddToTail
+    {   try {
+        if (el == null) throw new IllegalArgumentException();
+            Node<T> temp = new Node<T>(el, null, tail);
+            if (tail != null) tail.next = temp;
+            tail = temp;
+            if (head == null) {
+                head = temp;
+            }
+            count++;
+
+    } catch (Exception ex)
     {
-        Node<T> temp = new Node<T>(el, null, tail);
-        if(tail!=null) tail.next = temp;
-        tail = temp;
-        if(head==null) {head = temp;}
-        count++;
+        System.out.println(ex.toString());
+    }
     }
 
     public boolean Contains(T el)
@@ -79,11 +88,12 @@ public class DoubleLinkedList<T> {
     {
         int i = 0;
         Node cur = head;
-        while(i!=index)
+        /*while(i!=index)
         {
             i++;
             cur = cur.next;
-        }
+        }*/
+        cur = SearchByIndex(index);
         Node tmp = new Node(cur.data, cur.next, cur);
         cur.data = el;
         cur.next = tmp;
@@ -92,63 +102,47 @@ public class DoubleLinkedList<T> {
 
     public void Remove(T el)
     {
+        int index = IndexOf(el);
+        Node cur = SearchByIndex(index);
+           if (cur == null) throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
+           CollapseForRemove(cur);
+    }
 
-            Node cur = head;
-            while (cur != null && cur.data != el) {
-
-                cur = cur.next;
-            }
-           if (cur == null) System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
-               Node prevtmp = cur.prev;
-               Node nexttmp = cur.next;
-               //System.out.println(prevtmp.data)
-               if (prevtmp != null && nexttmp != null) {
-                   prevtmp.next = nexttmp;
-                   nexttmp.prev = prevtmp;
-                   System.out.println("case1");
-               }
-               if (prevtmp == null) {
-                   //prevtmp.next = nexttmp;
-                   nexttmp.prev = null;
-                   head = nexttmp;
-                   System.out.println("case2");
-               }
-               if (nexttmp == null) {
-                   //prevtmp.next = nexttmp;
-                   prevtmp.next = null;
-                   System.out.println("case3");
-               }
-               count--;
-           }
+    private Node<T> SearchByIndex(int index)
+    {
+        int i=0;
+        Node cur = head;
+        while (cur != null && i!=index) {
+        i++;
+        cur = cur.next;
+        }
+        return cur;
     }
 
     public void RemoveAt(int index)
     {
-        int i = 0;
-        Node cur = head;
-        while (cur != null && i!=index) {
-            i++;
 
-            cur = cur.next;
-        }
-        if (cur == null) System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
-            Node prevtmp = cur.prev;
-            Node nexttmp = cur.next;
-            if (prevtmp != null && nexttmp != null) {
-                prevtmp.next = nexttmp;
-                nexttmp.prev = prevtmp;
-            }
-            if (prevtmp == null) {
-                //prevtmp.next = nexttmp;
-                nexttmp.prev = null;
-                head = nexttmp;
-            }
-            if (nexttmp == null) {
-                //prevtmp.next = nexttmp;
-                prevtmp.next = null;
-            }
-            count--;
-        }
+        Node cur = SearchByIndex(index);
+        if (cur == null) throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
+        CollapseForRemove(cur);
     }
 
+    void CollapseForRemove(Node<T> cur){
+        Node prevtmp = cur.prev;
+        Node nexttmp = cur.next;
+        if (prevtmp != null && nexttmp != null) {
+            prevtmp.next = nexttmp;
+            nexttmp.prev = prevtmp;
+        }
+        if (prevtmp == null) {
+            //prevtmp.next = nexttmp;
+            nexttmp.prev = null;
+            head = nexttmp;
+        }
+        if (nexttmp == null) {
+            //prevtmp.next = nexttmp;
+            prevtmp.next = null;
+        }
+        count--;
+    }
 }

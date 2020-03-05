@@ -15,14 +15,14 @@ class DoubleLinkedListTest {
     void isEmpty()
     {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        String expected = "";
         for(int i=0; i<100; i++)
         {
             list.Add(i);
-            expected+=i+" ";
         }
-
+        assertEquals(false, list.isEmpty());
     }
+
+
 
     @org.junit.jupiter.api.Test
     void add() {

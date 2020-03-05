@@ -6,6 +6,7 @@ public class Main {
         list.Add("1");
         list.Add("2");
         list.Add("3");
+
         //list.Contains("2");
 
        System.out.println(list.Contains("3"));

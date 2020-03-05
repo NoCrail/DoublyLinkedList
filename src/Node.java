@@ -1,7 +1,7 @@
-public class Node<T> {
-    T data;
-    Node<T> next;
-    Node<T> prev;
+/*public class Node<T> {
+    private T data;
+    private Node<T> next;
+    private Node<T> prev;
 
     public Node(T in, Node<T> next, Node<T> prev)
     {
@@ -13,3 +13,4 @@ public class Node<T> {
 
 }
 
+*/
