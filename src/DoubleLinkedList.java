@@ -23,9 +23,13 @@ public class DoubleLinkedList<T>  {
 
     public void Clear()
     {
-        head = null;
-        tail = null;
-        count = 0;
+        /*while (count>0){
+            RemoveAt(0);
+            count--;
+        }*/
+        head=null;
+        tail=null;
+        count=0;
     }
 
     public int Count() { return count; }
@@ -88,43 +92,67 @@ public class DoubleLinkedList<T>  {
     {
         int i = 0;
         Node cur = head;
+        Node tmp;
         /*while(i!=index)
         {
             i++;
             cur = cur.next;
         }*/
         cur = SearchByIndex(index);
-        Node tmp = new Node(cur.data, cur.next, cur);
+        if(cur!=null)
+        {
+            tmp = new Node(cur.data, cur.next, cur);
         cur.data = el;
         cur.next = tmp;
         count++;
+        }
+        else Add(el);
     }
 
     public void Remove(T el)
     {
-        int index = IndexOf(el);
-        Node cur = SearchByIndex(index);
-           if (cur == null) throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
-           CollapseForRemove(cur);
+        try {
+            int index = IndexOf(el);
+            Node cur = SearchByIndex(index);
+            if (cur == null)
+                throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
+            CollapseForRemove(cur);
+        }
+        catch (IndexOutOfBoundsException ex)
+        {
+            System.out.println(ex.toString()+"== Такого элемента нет");
+
+        }
     }
 
     private Node<T> SearchByIndex(int index)
     {
-        int i=0;
-        Node cur = head;
-        while (cur != null && i!=index) {
-        i++;
-        cur = cur.next;
+        if(index<count) {
+            int i = 0;
+            Node cur = head;
+            while (cur != null && i != index) {
+                i++;
+                cur = cur.next;
+            }
+
+            return cur;
         }
-        return cur;
+        else return null;
+
     }
 
     public void RemoveAt(int index)
     {
+        try {
+            Node cur = SearchByIndex(index);
+            if (cur == null) throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
+            CollapseForRemove(cur);
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.toString()+index);
+        }
 
-        Node cur = SearchByIndex(index);
-        if (cur == null) throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
-        CollapseForRemove(cur);
     }
 
     void CollapseForRemove(Node<T> cur){
@@ -134,14 +162,19 @@ public class DoubleLinkedList<T>  {
             prevtmp.next = nexttmp;
             nexttmp.prev = prevtmp;
         }
-        if (prevtmp == null) {
+        if (prevtmp == null&&nexttmp!=null) {
             //prevtmp.next = nexttmp;
             nexttmp.prev = null;
             head = nexttmp;
         }
-        if (nexttmp == null) {
+        if (nexttmp == null&&prevtmp!=null) {
             //prevtmp.next = nexttmp;
             prevtmp.next = null;
+        }
+        if(nexttmp==null&&prevtmp==null)
+        {
+            Clear();
+            count++; //шоб потом смело минусить. Лень думать как сделать красивее
         }
         count--;
     }
