@@ -1,146 +1,144 @@
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoubleLinkedListTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void clear() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        for(int i=0; i<100; i++)
-        {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
         }
         list.Clear();
-        assertEquals(true, list.isEmpty());
+        assertTrue(list.isEmpty());
 
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void count() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        for(int i=0; i<100; i++)
-        {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
         }
-        assertEquals(100,list.Count());
+        assertEquals(100, list.Count());
     }
 
-    @org.junit.jupiter.api.Test
-    void isEmpty()
-    {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        for(int i=0; i<100; i++)
-        {
+    @Test
+    void isEmpty() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
         }
-        assertEquals(false, list.isEmpty());
+        assertFalse(list.isEmpty());
     }
 
 
-
-    @org.junit.jupiter.api.Test
+    @Test
     void add() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        String expected = "";
-        for(int i=0; i<100; i++)
-        {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        StringBuilder expected = new StringBuilder();
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
-            expected+=i+" ";
+            expected.append(i).append(" ");
         }
-        assertEquals(expected, list.PrintForward());
+        assertEquals(expected.toString(), list.PrintForward());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void contains() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        boolean expected = true;
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual = true;
-        for(int i=0; i<100; i++)
-        {
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
         }
-        for(int i=0; i<100; i++)
-        {
-            if(!list.Contains(i))actual=false;
+        for (int i = 0; i < 100; i++) {
+            if (!list.Contains(i)) {
+                actual = false;
+            }
         }
-        assertEquals(expected, actual);
+        assertTrue(actual);
     }
 
-    @org.junit.jupiter.api.Test
-    void printForward() {
 
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void indexOf() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        boolean expected = true;
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+
         boolean actual = true;
-        for(int i=0; i<100; i++)
-        {
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
         }
-        for(int i=0; i<100; i++)
-        {
-            if(list.IndexOf(i)!=i)actual=false;
+        for (int i = 0; i < 100; i++) {
+            if (list.IndexOf(i) != i) actual = false;
         }
-        assertEquals(expected, actual);
+        assertTrue(actual);
     }
 
-    @org.junit.jupiter.api.Test
-    void insert() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        boolean expected = true;
+    @Test
+    void insert() {             //Adding to list with elements
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual = true;
 
-        list.Insert(0,-10);
-        for(int i=0; i<10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             list.Add(i);
+            list.Insert(i,i);
         }
-        for(int i=0; i<10; i++)
-        {
-            list.Insert(i, -i);
+
+        for (int i = 0; i < 10; i++) {
+            if (!list.Contains(i)) actual = false;
         }
-        for(int i=0; i<=10; i++)
-        {
-            if(!list.Contains(-i))actual=false;
-        }
-        assertEquals(expected, actual);
+        assertTrue( actual);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void insertToEmpty(){
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        boolean actual;
+
+        list.Insert(1, 1);
+        list.Insert(0,0);
+
+        actual=(list.Contains(1)&&list.Contains(0));
+        assertTrue( actual);
+    }
+
+    @Test
+    void insertToBorders(){
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        boolean actual;
+        list.Add(0);
+        list.Insert(1,1);
+        list.Insert(0, 2);
+        actual=(list.Contains(1)&&list.Contains(2));
+        assertTrue( actual);
+    }
+
+
+    @Test
     void remove() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        boolean expected = true;
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual = true;
-        for(int i=0; i<100; i++)
-        {
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
         }
-        for(int i=0; i<101; i++)
-        {
+        for (int i = 0; i < 101; i++) {
             list.Remove(i);
-            if(list.Contains(i))actual=false;
+            if (list.Contains(i)) actual = false;
         }
-        assertEquals(expected, actual);
+        assertTrue( actual);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void removeAt() {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
-        boolean expected = true;
-
-        for(int i=0; i<100; i++)
-        {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        for (int i = 0; i < 100; i++) {
             list.Add(i);
         }
-        for(int i=0; i<100; i++)
-        {
+        for (int i = 0; i < 101; i++) {
             list.RemoveAt(0);
-
         }
-        //System.out.println(list.PrintForward());
-        assertEquals(expected, list.isEmpty());
+        assertTrue(list.isEmpty());
     }
 }
