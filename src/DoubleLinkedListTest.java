@@ -8,9 +8,9 @@ class DoubleLinkedListTest {
     void clear() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
         }
-        list.Clear();
+        list.clear();
         assertTrue(list.isEmpty());
 
 
@@ -20,16 +20,16 @@ class DoubleLinkedListTest {
     void count() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
         }
-        assertEquals(100, list.Count());
+        assertEquals(100, list.count());
     }
 
     @Test
     void isEmpty() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
         }
         assertFalse(list.isEmpty());
     }
@@ -40,10 +40,10 @@ class DoubleLinkedListTest {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         StringBuilder expected = new StringBuilder();
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
             expected.append(i).append(" ");
         }
-        assertEquals(expected.toString(), list.PrintForward());
+        assertEquals(expected.toString(), list.printForward());
     }
 
     @Test
@@ -51,10 +51,10 @@ class DoubleLinkedListTest {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual = true;
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
         }
         for (int i = 0; i < 100; i++) {
-            if (!list.Contains(i)) {
+            if (!list.contains(i)) {
                 actual = false;
             }
         }
@@ -68,10 +68,10 @@ class DoubleLinkedListTest {
 
         boolean actual = true;
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
         }
         for (int i = 0; i < 100; i++) {
-            if (list.IndexOf(i) != i) actual = false;
+            if (list.indexOf(i) != i) actual = false;
         }
         assertTrue(actual);
     }
@@ -82,12 +82,12 @@ class DoubleLinkedListTest {
         boolean actual = true;
 
         for (int i = 0; i < 10; i++) {
-            list.Add(i);
-            list.Insert(i,i);
+            list.add(i);
+            list.insert(i,i);
         }
 
         for (int i = 0; i < 10; i++) {
-            if (!list.Contains(i)) actual = false;
+            if (!list.contains(i)) actual = false;
         }
         assertTrue( actual);
     }
@@ -97,10 +97,10 @@ class DoubleLinkedListTest {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual;
 
-        list.Insert(1, 1);
-        list.Insert(0,0);
+        list.insert(1, 1);
+        list.insert(0,0);
 
-        actual=(list.Contains(1)&&list.Contains(0));
+        actual=(list.contains(1)&&list.contains(0));
         assertTrue( actual);
     }
 
@@ -108,10 +108,10 @@ class DoubleLinkedListTest {
     void insertToBorders(){
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual;
-        list.Add(0);
-        list.Insert(1,1);
-        list.Insert(0, 2);
-        actual=(list.Contains(1)&&list.Contains(2));
+        list.add(0);
+        list.insert(1,1);
+        list.insert(0, 2);
+        actual=(list.contains(1)&&list.contains(2));
         assertTrue( actual);
     }
 
@@ -121,11 +121,11 @@ class DoubleLinkedListTest {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual = true;
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
         }
         for (int i = 0; i < 101; i++) {
-            list.Remove(i);
-            if (list.Contains(i)) actual = false;
+            list.remove(i);
+            if (list.contains(i)) actual = false;
         }
         assertTrue( actual);
     }
@@ -134,10 +134,10 @@ class DoubleLinkedListTest {
     void removeAt() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         for (int i = 0; i < 100; i++) {
-            list.Add(i);
+            list.add(i);
         }
         for (int i = 0; i < 101; i++) {
-            list.RemoveAt(0);
+            list.removeAt(0);
         }
         assertTrue(list.isEmpty());
     }

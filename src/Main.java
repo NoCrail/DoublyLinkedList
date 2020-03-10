@@ -3,9 +3,9 @@ public class Main {
     {
 
         DoubleLinkedList<String> list = new DoubleLinkedList<String>();
-        list.Add("1");
-        list.Remove("1");
-        System.out.println(list.PrintForward());
+        list.add("1");
+        list.remove("1");
+        System.out.println(list.printForward());
 
 
        // System.out.println(list.getData());

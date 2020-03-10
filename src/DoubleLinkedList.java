@@ -20,13 +20,13 @@ public class DoubleLinkedList<T> {
     private int count;
 //интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
 
-    public void Clear() {
+    public void clear() {
         head = null;
         tail = null;
         count = 0;
     }
 
-    public int Count() {
+    public int count() {
         return count;
     }
 
@@ -35,12 +35,14 @@ public class DoubleLinkedList<T> {
     }
 
     /**
-     * @param el
+     * @param element - input parameter
      * @throws IllegalArgumentException - in case of an argument value is null.
      */
-    public void Add(T el) throws IllegalArgumentException {      //AddToTail
-        if (el == null) throw new IllegalArgumentException();
-        Node<T> temp = new Node<>(el, null, tail);
+
+
+    public void add(T element) throws IllegalArgumentException {      //AddToTail
+        if (element == null) throw new IllegalArgumentException();
+        Node<T> temp = new Node<>(element, null, tail);
         if (tail != null) tail.next = temp;
         tail = temp;
         if (head == null) {
@@ -49,117 +51,111 @@ public class DoubleLinkedList<T> {
         count++;
     }
 
-    public boolean Contains(T el) {
+    public boolean contains(T element) {
         Node<T> tmp = head;
+
         while (tmp != null) {
-            if (tmp.data.equals(el)) return true;
+            if (tmp.data.equals(element)) return true;
             tmp = tmp.next;
         }
         return false;
     }
 
-    public String PrintForward() {
+    public String printForward() {
         String s = "";
         Node<T> tmp = head;
         StringBuilder sb = new StringBuilder(s);
         while (tmp != null) {
             sb.append(tmp.data).append(" ");
-            //System.out.println(tmp.data);
             tmp = tmp.next;
         }
         return sb.toString();
     }
 
-    public int IndexOf(T el) {
-        int res = -1;
+    /**
+     * @param element value to find
+     * @return int number of last element in list or -1 if value not found
+     */
+    public int indexOf(T element) {    //последнее вхождение
+        int result = -1;
         int i = 0;
         Node<T> tmp = head;
         while (tmp != null) {
-            if (tmp.data == el) {
-                res = i;
+            if (tmp.data.equals(element)) {
+                result = i;
             }
             tmp = tmp.next;
             i++;
         }
-        return res;
+        return result;
     }
 
-    public void Insert(int index, T el) {
-        //int i = 0;
-        Node<T> cur;
+    public void insert(int index, T element) {
+
+        Node<T> current;
         Node<T> tmp;
-        /*while(i!=index)
-        {
-            i++;
-            cur = cur.next;
-        }*/
-        cur = SearchByIndex(index);
-        if (cur != null) {
-            tmp = new Node<>(cur.data, cur.next, cur);
-            cur.data = el;
-            cur.next = tmp;
+
+        current = searchByIndex(index);
+        if (current != null) {
+            tmp = new Node<>(current.data, current.next, current);
+            current.data = element;
+            current.next = tmp;
             count++;
-        } else Add(el);
+        } else add(element);
     }
 
-    public void Remove(T el) {
-        try {
-            int index = IndexOf(el);
-            Node<T> cur = SearchByIndex(index);
-            if (cur == null)
+    public void remove(T element) {
+
+            int index = indexOf(element);
+            Node<T> current = searchByIndex(index);
+            if (current == null)
                 throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
-            CollapseForRemove(cur);
-        } catch (IndexOutOfBoundsException ex) {
-            System.out.println(ex.toString() + "== Такого элемента нет");
+            collapseForRemove(current);
 
-        }
     }
 
-    private Node<T> SearchByIndex(int index) {
+    private Node<T> searchByIndex(int index) {
         if (index < count) {
             int i = 0;
-            Node<T> cur = head;
-            while (cur != null && i != index) {
+            Node<T> current = head;
+            while (current != null && i != index) {
                 i++;
-                cur = cur.next;
+                current = current.next;
             }
 
-            return cur;
-        } else return null;
+            return current;
+        } else return null; //переделать
 
     }
 
-    public void RemoveAt(int index) {
+    public void removeAt(int index) {
         try {
-            Node<T> cur = SearchByIndex(index);
-            if (cur == null)
+            Node<T> current = searchByIndex(index);
+            if (current == null)
                 throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
-            CollapseForRemove(cur);
+            collapseForRemove(current);
         } catch (Exception ex) {
             System.out.println(ex.toString() + index);
         }
 
     }
 
-    void CollapseForRemove(Node<T> cur) {
-        Node<T> prevtmp = cur.prev;
-        Node<T> nexttmp = cur.next;
+    private void collapseForRemove(Node<T> current) {
+        Node<T> prevtmp = current.prev;
+        Node<T> nexttmp = current.next;
         if (prevtmp != null && nexttmp != null) {
             prevtmp.next = nexttmp;
             nexttmp.prev = prevtmp;
         }
         if (prevtmp == null && nexttmp != null) {
-            //prevtmp.next = nexttmp;
             nexttmp.prev = null;
             head = nexttmp;
         }
         if (nexttmp == null && prevtmp != null) {
-            //prevtmp.next = nexttmp;
             prevtmp.next = null;
         }
         if (nexttmp == null && prevtmp == null) {
-            Clear();
-
+            clear();
         }
         if(count!=0){
             count--;
