@@ -1,5 +1,4 @@
-
-public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
+public class Sublist<T> implements IList<T> {
     private static class Node<T> {
         private T data;
         private Node<T> next;
@@ -14,48 +13,16 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
     }
 
-
     private Node<T> head;
     private Node<T> tail;
     private int count;
 //интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
-
+/*
     public void clear() {
         head = null;
         tail = null;
         count = 0;
-    }
-
-
-
-    public Sublist<T> createSublist(int start, int finish) throws IndexOutOfBoundsException{
-        Sublist<T> slist = new Sublist<>();
-        if((start>count)||(finish>count)) throw new IndexOutOfBoundsException();
-        if(finish<start){
-            int a = finish;
-            finish = start;
-            start = a;
-        } //поменять местами если перепутаны границы
-        Node<T> tmp = head;
-        int i = 0;
-        System.out.println("Called creator");
-        while (tmp != null) {
-            if((i<=finish)&&(i>=start)){
-                try {
-                    slist.add(tmp.data);
-                }
-                catch (Exception ex){
-                    System.out.println("Ex got"+ex.toString());
-                }
-                System.out.println("Element thrown");
-            }
-            tmp = tmp.next;
-            i++;
-        }
-
-
-        return slist;
-    }
+    }*/ //clear
 
     public int count() {
         return count;
@@ -69,9 +36,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
      * @param element - input parameter
      * @throws IllegalArgumentException - in case of an argument value is null.
      */
-
-
-    public void add(T element) throws IllegalArgumentException {      //AddToTail
+    protected void add(T element) throws IllegalArgumentException {      //AddToTail
         if (element == null) throw new IllegalArgumentException();
         Node<T> temp = new Node<>(element, null, tail);
         if (tail != null) tail.next = temp;
@@ -81,7 +46,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         }
         count++;
     }
-
+ //add
     public boolean contains(T element) {
         Node<T> tmp = head;
 
@@ -94,9 +59,8 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
     public String printForward() {
         String s = "";
-        StringBuilder sb = new StringBuilder(s);
         Node<T> tmp = head;
-
+        StringBuilder sb = new StringBuilder(s);
         while (tmp != null) {
             sb.append(tmp.data).append(" ");
             tmp = tmp.next;
@@ -121,7 +85,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         }
         return result;
     }
-
+/*
     public void insert(int index, T element) {
 
         Node<T> current;
@@ -135,16 +99,17 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
             count++;
         } else add(element);
     }
-
+*/ //insert
+    /*
     public void remove(T element) {
 
-            int index = indexOf(element);
-            Node<T> current = searchByIndex(index);
-            if (current == null)
-                throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
-            collapseForRemove(current);
+        int index = indexOf(element);
+        Node<T> current = searchByIndex(index);
+        if (current == null)
+            throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
+        collapseForRemove(current);
 
-    }
+    }*/ //remove
 
     private Node<T> searchByIndex(int index) {
         if (index < count) {
@@ -160,6 +125,8 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
     }
 
+
+/*
     public void removeAt(int index) {
         try {
             Node<T> current = searchByIndex(index);
@@ -171,8 +138,8 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         }
 
     }
-
-    private void collapseForRemove(Node<T> current) {
+*/ //removeAt
+    /*private void collapseForRemove(Node<T> current) {
         Node<T> prevtmp = current.prev;
         Node<T> nexttmp = current.next;
         if (prevtmp != null && nexttmp != null) {
@@ -193,6 +160,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
             count--;
         }
     }
+*/  //collapse for remove
 
 
 }

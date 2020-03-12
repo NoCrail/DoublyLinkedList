@@ -123,7 +123,7 @@ class DoubleLinkedListTest {
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
-        for (int i = 0; i < 101; i++) {
+        for (int i = 0; i < 100; i++) {
             list.remove(i);
             if (list.contains(i)) actual = false;
         }
