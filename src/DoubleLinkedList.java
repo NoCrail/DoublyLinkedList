@@ -161,13 +161,13 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
     }
 
-    protected T getNodeData(Node<T> node){
+    /*protected T getNodeData(Node<T> node){
         return node.data;
-    }
+    }*/ //getnodedata сли ничо не упадет УДАЛИТЬ
 
 
     /**
-     * @param index
+     * @param index - int number of element in List
      * @throws IndexOutOfBoundsException - if input index > size of list
      */
     public void removeAt(int index) throws IndexOutOfBoundsException {

@@ -1,4 +1,5 @@
 public class MutableSublist<T> implements IList<T> {
+
     @Override
     public int count() {
         return finish-start+1;
@@ -57,7 +58,7 @@ public class MutableSublist<T> implements IList<T> {
     private int finish;
 
 
-    public MutableSublist(DoubleLinkedList<T> list, int start, int finish)
+    public MutableSublist(DoubleLinkedList<T> list, int start, int finish) //обработать ошибку плохих границ
     {
         parentList = list;
         this.start = start;
@@ -74,8 +75,35 @@ public class MutableSublist<T> implements IList<T> {
         }
     }
 
+    public void add(T element) throws IllegalArgumentException {      //AddToTail
+        if (element == null) throw new IllegalArgumentException();
+        parentList.insert(finish+1, element);
+        //finish++;
+    }
 
+    public void insert (int index, T element) throws IndexOutOfBoundsException{
+        if(index>count()){
+            throw new IndexOutOfBoundsException();
+        }
+        int parentIndex = index+start;
+        parentList.insert(parentIndex, element);
+        //finish++;
+    }
 
+    public void removeAt(int index) throws IndexOutOfBoundsException{
+        if(index>count()){
+            throw new IndexOutOfBoundsException();
+        }
+        int parentIndex = index+start;
+        parentList.removeAt(parentIndex);
+        //finish--;
+    }
 
+    public void remove(T element){
+        if(contains(element)) {
+            parentList.remove(element);
+        }
+
+    }
 
 }
