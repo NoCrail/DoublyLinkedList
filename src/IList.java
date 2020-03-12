@@ -1,17 +1,17 @@
 public interface IList<T> {
     //public void clear();
 
-    public int count();
+    int count();
 
-    public boolean isEmpty();
+    boolean isEmpty();
 
    // public void add(T value);
 
-    public boolean contains(T value);
+    boolean contains(T value);
 
-    public String printForward();
+    String printForward();
 
-    public int indexOf(T value);
+    int indexOf(T value);
 
     //public void insert(int index, T value);
 

@@ -2,12 +2,12 @@ public class Sublist<T> implements IList<T> {
     private static class Node<T> {
         private T data;
         private Node<T> next;
-        private Node<T> prev;
+        Node<T> previous;
 
         public Node(T in, Node<T> next, Node<T> prev) {
             data = in;
             this.next = next;
-            this.prev = prev;
+            this.previous = prev;
         }
 
 
@@ -23,6 +23,8 @@ public class Sublist<T> implements IList<T> {
         tail = null;
         count = 0;
     }*/ //clear
+
+
 
     public int count() {
         return count;
@@ -111,7 +113,7 @@ public class Sublist<T> implements IList<T> {
 
     }*/ //remove
 
-    private Node<T> searchByIndex(int index) {
+    /*private Node<T> searchByIndex(int index) {
         if (index < count) {
             int i = 0;
             Node<T> current = head;
@@ -123,7 +125,7 @@ public class Sublist<T> implements IList<T> {
             return current;
         } else return null; //переделать
 
-    }
+    }*/ //searchbyindex
 
 
 /*

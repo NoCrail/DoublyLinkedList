@@ -28,6 +28,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
 
 
+
     public Sublist<T> createSublist(int start, int finish) throws IndexOutOfBoundsException{
         Sublist<T> slist = new Sublist<>();
         if((start>count)||(finish>count)) throw new IndexOutOfBoundsException();
@@ -146,7 +147,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
     }
 
-    private Node<T> searchByIndex(int index) {
+    protected Node<T> searchByIndex(int index) {
         if (index < count) {
             int i = 0;
             Node<T> current = head;
@@ -156,20 +157,24 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
             }
 
             return current;
-        } else return null; //переделать
+        } else return null;
 
     }
 
-    public void removeAt(int index) {
-        try {
+    protected T getNodeData(Node<T> node){
+        return node.data;
+    }
+
+
+    /**
+     * @param index
+     * @throws IndexOutOfBoundsException - if input index > size of list
+     */
+    public void removeAt(int index) throws IndexOutOfBoundsException {
             Node<T> current = searchByIndex(index);
             if (current == null)
                 throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
             collapseForRemove(current);
-        } catch (Exception ex) {
-            System.out.println(ex.toString() + index);
-        }
-
     }
 
     private void collapseForRemove(Node<T> current) {
