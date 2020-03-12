@@ -1,7 +1,7 @@
 public class Sublist<T> implements IList<T> {
-    private static class Node<T> {
-        private T data;
-        private Node<T> next;
+    protected static class Node<T> {
+        protected T data;
+        protected Node<T> next;
         Node<T> previous;
 
         public Node(T in, Node<T> next, Node<T> prev) {
@@ -13,9 +13,9 @@ public class Sublist<T> implements IList<T> {
 
     }
 
-    private Node<T> head;
-    private Node<T> tail;
-    private int count;
+    protected Node<T> head;
+    protected Node<T> tail;
+    protected int count;
 //интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
 /*
     public void clear() {
@@ -50,13 +50,7 @@ public class Sublist<T> implements IList<T> {
     }
  //add
     public boolean contains(T element) {
-        Node<T> tmp = head;
-
-        while (tmp != null) {
-            if (tmp.data.equals(element)) return true;
-            tmp = tmp.next;
-        }
-        return false;
+        return (indexOf(element)!=-1);
     }
 
     public String printForward() {

@@ -1,23 +1,8 @@
 
 public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
-    private static class Node<T> {
-        private T data;
-        private Node<T> next;
-        private Node<T> prev;
-
-        public Node(T in, Node<T> next, Node<T> prev) {
-            data = in;
-            this.next = next;
-            this.prev = prev;
-        }
 
 
-    }
 
-
-    private Node<T> head;
-    private Node<T> tail;
-    private int count;
 //интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
 
     public void clear() {
@@ -42,13 +27,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         System.out.println("Called creator");
         while (tmp != null) {
             if((i<=finish)&&(i>=start)){
-                try {
                     slist.add(tmp.data);
-                }
-                catch (Exception ex){
-                    System.out.println("Ex got"+ex.toString());
-                }
-                System.out.println("Element thrown");
             }
             tmp = tmp.next;
             i++;
@@ -58,9 +37,9 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         return slist;
     }
 
-    public int count() {
+   /* public int count() {
         return count;
-    }
+    }*/
 
     public boolean isEmpty() {
         return count == 0;
@@ -83,15 +62,9 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         count++;
     }
 
-    public boolean contains(T element) {
-        Node<T> tmp = head;
-
-        while (tmp != null) {
-            if (tmp.data.equals(element)) return true;
-            tmp = tmp.next;
-        }
-        return false;
-    }
+ /*   public boolean contains(T element) {
+        return (indexOf(element)!=-1);
+    }*/
 
     public String printForward() {
         String s = "";
@@ -178,14 +151,14 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
     }
 
     private void collapseForRemove(Node<T> current) {
-        Node<T> prevtmp = current.prev;
+        Node<T> prevtmp = current.previous;
         Node<T> nexttmp = current.next;
         if (prevtmp != null && nexttmp != null) {
             prevtmp.next = nexttmp;
-            nexttmp.prev = prevtmp;
+            nexttmp.previous = prevtmp;
         }
         if (prevtmp == null && nexttmp != null) {
-            nexttmp.prev = null;
+            nexttmp.previous = null;
             head = nexttmp;
         }
         if (nexttmp == null && prevtmp != null) {
