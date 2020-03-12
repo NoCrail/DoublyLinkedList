@@ -6,6 +6,7 @@ class MutableSublistTest {
 
     @Test
     void count() {
+
     }
 
     @Test
@@ -16,9 +17,6 @@ class MutableSublistTest {
     void contains() {
     }
 
-    @Test
-    void printForward() {
-    }
 
     @Test
     void indexOf() {
@@ -26,6 +24,13 @@ class MutableSublistTest {
 
     @Test
     void clear() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        for (int i = 0; i < 100; i++) {
+            list.add(i);
+        }
+        MutableSublist<Integer> mlist = new MutableSublist<>(list, 0,99);
+        mlist.clear();
+        assertEquals(mlist.isEmpty(), list.isEmpty());
     }
 
     @Test

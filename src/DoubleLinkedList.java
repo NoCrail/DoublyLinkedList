@@ -24,7 +24,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         } //поменять местами если перепутаны границы
         Node<T> tmp = head;
         int i = 0;
-        System.out.println("Called creator");
+       // System.out.println("Called creator");
         while (tmp != null) {
             if((i<=finish)&&(i>=start)){
                     slist.add(tmp.data);
@@ -41,9 +41,6 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         return count;
     }*/
 
-    public boolean isEmpty() {
-        return count == 0;
-    }
 
     /**
      * @param element - input parameter

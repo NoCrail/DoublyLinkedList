@@ -1,28 +1,14 @@
+
 public class Sublist<T> implements IList<T> {
-    protected static class Node<T> {
-        protected T data;
-        protected Node<T> next;
-        Node<T> previous;
-
-        public Node(T in, Node<T> next, Node<T> prev) {
-            data = in;
-            this.next = next;
-            this.previous = prev;
-        }
 
 
-    }
+
+
 
     protected Node<T> head;
     protected Node<T> tail;
     protected int count;
 //интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
-/*
-    public void clear() {
-        head = null;
-        tail = null;
-        count = 0;
-    }*/ //clear
 
 
 
@@ -30,9 +16,7 @@ public class Sublist<T> implements IList<T> {
         return count;
     }
 
-    public boolean isEmpty() {
-        return count == 0;
-    }
+
 
     /**
      * @param element - input parameter
@@ -81,82 +65,6 @@ public class Sublist<T> implements IList<T> {
         }
         return result;
     }
-/*
-    public void insert(int index, T element) {
-
-        Node<T> current;
-        Node<T> tmp;
-
-        current = searchByIndex(index);
-        if (current != null) {
-            tmp = new Node<>(current.data, current.next, current);
-            current.data = element;
-            current.next = tmp;
-            count++;
-        } else add(element);
-    }
-*/ //insert
-    /*
-    public void remove(T element) {
-
-        int index = indexOf(element);
-        Node<T> current = searchByIndex(index);
-        if (current == null)
-            throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
-        collapseForRemove(current);
-
-    }*/ //remove
-
-    /*private Node<T> searchByIndex(int index) {
-        if (index < count) {
-            int i = 0;
-            Node<T> current = head;
-            while (current != null && i != index) {
-                i++;
-                current = current.next;
-            }
-
-            return current;
-        } else return null; //переделать
-
-    }*/ //searchbyindex
-
-
-/*
-    public void removeAt(int index) {
-        try {
-            Node<T> current = searchByIndex(index);
-            if (current == null)
-                throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
-            collapseForRemove(current);
-        } catch (Exception ex) {
-            System.out.println(ex.toString() + index);
-        }
-
-    }
-*/ //removeAt
-    /*private void collapseForRemove(Node<T> current) {
-        Node<T> prevtmp = current.prev;
-        Node<T> nexttmp = current.next;
-        if (prevtmp != null && nexttmp != null) {
-            prevtmp.next = nexttmp;
-            nexttmp.prev = prevtmp;
-        }
-        if (prevtmp == null && nexttmp != null) {
-            nexttmp.prev = null;
-            head = nexttmp;
-        }
-        if (nexttmp == null && prevtmp != null) {
-            prevtmp.next = null;
-        }
-        if (nexttmp == null && prevtmp == null) {
-            clear();
-        }
-        if(count!=0){
-            count--;
-        }
-    }
-*/  //collapse for remove
 
 
 }

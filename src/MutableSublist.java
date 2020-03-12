@@ -5,10 +5,7 @@ public class MutableSublist<T> implements IList<T> {
         return finish-start+1;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
+
 
     @Override
     public boolean contains(T value) {
@@ -71,13 +68,14 @@ public class MutableSublist<T> implements IList<T> {
 
     public void clear(){
         for(int i = start; i<=finish; i++){
-            parentList.removeAt(i);
+            parentList.removeAt(0);
+            start++;
         }
     }
 
     public void add(T element) throws IllegalArgumentException {      //AddToTail
         if (element == null) throw new IllegalArgumentException();
-        parentList.insert(finish+1, element);
+        parentList.insert(finish/*+1*/, element);
         //finish++;
     }
 

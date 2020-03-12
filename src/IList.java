@@ -1,15 +1,33 @@
 public interface IList<T> {
-    //public void clear();
+
+
+    static class Node<T> {
+        protected T data;
+        protected Node<T> next;
+        Node<T> previous;
+
+        public Node(T in, Node<T> next, Node<T> prev) {
+            data = in;
+            this.next = next;
+            this.previous = prev;
+        }
+    }
 
     int count();
 
-    boolean isEmpty();
+
+    default
+    boolean isEmpty(){
+        return count() == 0;
+    }
+
+
 
    // public void add(T value);
 
     boolean contains(T value);
 
-    String printForward();
+
 
     int indexOf(T value);
 
