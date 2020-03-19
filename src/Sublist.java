@@ -1,21 +1,28 @@
 
-public class Sublist<T> implements IList<T> {
-
-
-
+public class Sublist<T> extends Node<T> implements IListRO<T> {
 
 
     protected Node<T> head;
     protected Node<T> tail;
     protected int count;
-//интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
 
+    Sublist(T in, Node<T> next, Node<T> prev) {
+        super(in, next, prev);
+    }
+
+    Sublist() {
+        head=null;
+        tail=null;
+        count=0;
+    }
+
+
+//интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
 
 
     public int count() {
         return count;
     }
-
 
 
     /**
@@ -24,7 +31,7 @@ public class Sublist<T> implements IList<T> {
      */
     protected void add(T element) throws IllegalArgumentException {      //AddToTail
         if (element == null) throw new IllegalArgumentException();
-        Node<T> temp = new Node<>(element, null, tail);
+        Node<T> temp = new Node<T>(element, null, tail);
         if (tail != null) tail.next = temp;
         tail = temp;
         if (head == null) {
@@ -32,9 +39,10 @@ public class Sublist<T> implements IList<T> {
         }
         count++;
     }
- //add
+
+    //add
     public boolean contains(T element) {
-        return (indexOf(element)!=-1);
+        return (indexOf(element) != -1);
     }
 
     public String printForward() {

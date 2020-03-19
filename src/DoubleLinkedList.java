@@ -1,33 +1,53 @@
+public class DoubleLinkedList<T> extends Sublist<T>  implements IList<T> {
 
-public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
+    DoubleLinkedList(T in, Node<T> next, Node<T> prev) {
+        super(in, next, prev);
+    }
 
+    DoubleLinkedList(){}
 
 //интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
 
-    public void clear() {
-        head = null;
-        tail = null;
-        count = 0;
+
+
+
+    public DoubleLinkedList<T> createMutableSublist(int start, int finish) throws IndexOutOfBoundsException{
+        DoubleLinkedList<T> mlist = new DoubleLinkedList<>();
+        mlist.head=this.head;
+        mlist.tail=this.tail;
+
+        Node<T> tmp = head;
+        int i=0;
+        mlist.count=finish-start+1;
+        while (tmp != null) {
+            if (i==start) {
+                mlist.head=tmp;
+            }
+            if (i==finish) {
+                mlist.tail=tmp;
+            }
+            tmp = tmp.next;
+            i++;
+        }
+        return mlist;
     }
 
 
-
-
-    public Sublist<T> createSublist(int start, int finish) throws IndexOutOfBoundsException{
+    public Sublist<T> createSublist(int start, int finish) throws IndexOutOfBoundsException {
         Sublist<T> slist = new Sublist<>();
-        if((start>count)||(finish>count)) throw new IndexOutOfBoundsException();
-        if(finish<start){
+        if ((start > count) || (finish > count)) throw new IndexOutOfBoundsException();
+        if (finish < start) {
             int a = finish;
             finish = start;
             start = a;
         } //поменять местами если перепутаны границы
         Node<T> tmp = head;
         int i = 0;
-       // System.out.println("Called creator");
+
         while (tmp != null) {
-            if((i<=finish)&&(i>=start)){
-                    slist.add(tmp.data);
+            if ((i <= finish) && (i >= start)) {
+                slist.add(tmp.data);
             }
             tmp = tmp.next;
             i++;
@@ -46,8 +66,6 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
      * @param element - input parameter
      * @throws IllegalArgumentException - in case of an argument value is null.
      */
-
-
     public void add(T element) throws IllegalArgumentException {      //AddToTail
         if (element == null) throw new IllegalArgumentException();
         Node<T> temp = new Node<>(element, null, tail);
@@ -59,9 +77,23 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         count++;
     }
 
- /*   public boolean contains(T element) {
+    public void clear() {
+        head = null;
+        tail = null;
+        count = 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return count==0;
+    }
+
+    public boolean contains(T element) {
         return (indexOf(element)!=-1);
-    }*/
+    }
+
+
+
 
     public String printForward() {
         String s = "";
@@ -109,11 +141,11 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
 
     public void remove(T element) {
 
-            int index = indexOf(element);
-            Node<T> current = searchByIndex(index);
-            if (current == null)
-                throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
-            collapseForRemove(current);
+        int index = indexOf(element);
+        Node<T> current = searchByIndex(index);
+        if (current == null)
+            throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {
+        collapseForRemove(current);
 
     }
 
@@ -141,10 +173,10 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
      * @throws IndexOutOfBoundsException - if input index > size of list
      */
     public void removeAt(int index) throws IndexOutOfBoundsException {
-            Node<T> current = searchByIndex(index);
-            if (current == null)
-                throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
-            collapseForRemove(current);
+        Node<T> current = searchByIndex(index);
+        if (current == null)
+            throw new IndexOutOfBoundsException();//System.out.println("Тут тоже должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)");
+        collapseForRemove(current);
     }
 
     private void collapseForRemove(Node<T> current) {
@@ -164,7 +196,7 @@ public class DoubleLinkedList<T> extends Sublist<T> implements IList<T> {
         if (nexttmp == null && prevtmp == null) {
             clear();
         }
-        if(count!=0){
+        if (count != 0) {
             count--;
         }
     }

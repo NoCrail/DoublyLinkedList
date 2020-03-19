@@ -1,12 +1,7 @@
-public interface IList<T> {
-
-
+public interface IListRO<T> {
 
 
     int count();
-
-    void clear();
-
 
 
     default boolean isEmpty() {
@@ -18,5 +13,4 @@ public interface IList<T> {
 
 
     int indexOf(T value);
-
 }

@@ -83,36 +83,36 @@ class DoubleLinkedListTest {
 
         for (int i = 0; i < 10; i++) {
             list.add(i);
-            list.insert(i,i);
+            list.insert(i, i);
         }
 
         for (int i = 0; i < 10; i++) {
             if (!list.contains(i)) actual = false;
         }
-        assertTrue( actual);
+        assertTrue(actual);
     }
 
     @Test
-    void insertToEmpty(){
+    void insertToEmpty() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual;
 
         list.insert(1, 1);
-        list.insert(0,0);
+        list.insert(0, 0);
 
-        actual=(list.contains(1)&&list.contains(0));
-        assertTrue( actual);
+        actual = (list.contains(1) && list.contains(0));
+        assertTrue(actual);
     }
 
     @Test
-    void insertToBorders(){
+    void insertToBorders() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         boolean actual;
         list.add(0);
-        list.insert(1,1);
+        list.insert(1, 1);
         list.insert(0, 2);
-        actual=(list.contains(1)&&list.contains(2));
-        assertTrue( actual);
+        actual = (list.contains(1) && list.contains(2));
+        assertTrue(actual);
     }
 
 
@@ -127,7 +127,7 @@ class DoubleLinkedListTest {
             list.remove(i);
             if (list.contains(i)) actual = false;
         }
-        assertTrue( actual);
+        assertTrue(actual);
     }
 
     @Test
@@ -136,7 +136,7 @@ class DoubleLinkedListTest {
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
-        for (int i = 0; i < 101; i++) {
+        for (int i = 0; i < 100; i++) {
             list.removeAt(0);
         }
         assertTrue(list.isEmpty());
