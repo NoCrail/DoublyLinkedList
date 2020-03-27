@@ -26,6 +26,14 @@ class DoubleLinkedListTest {
     }
 
     @Test
+    void insertnull() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+
+        assertThrows( IllegalArgumentException.class, () -> list.add(null));
+    }
+
+
+    @Test
     void isEmpty() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         for (int i = 0; i < 100; i++) {
@@ -71,7 +79,7 @@ class DoubleLinkedListTest {
             list.add(i);
         }
         for (int i = 0; i < 100; i++) {
-            if (list.indexOf(i) != i) actual = false;
+            if (list.lastIndexOf(i) != i) actual = false;
         }
         assertTrue(actual);
     }

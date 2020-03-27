@@ -10,7 +10,7 @@ class SublistTest {
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
-        Sublist<Integer> slist = list.createSublist(0, 99);
+        IListReadOnly<Integer> slist = list.createSublist(0, 99);
         assertEquals(100, slist.count());
     }
 
@@ -20,7 +20,7 @@ class SublistTest {
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
-        Sublist<Integer> slist = list.createSublist(0, 99);
+        IListReadOnly<Integer> slist = list.createSublist(0, 99);
         assertFalse(slist.isEmpty());
     }
 
@@ -30,7 +30,7 @@ class SublistTest {
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
-        Sublist<Integer> slist = list.createSublist(0, 9);
+        IListReadOnly<Integer> slist = list.createSublist(0, 9);
         boolean actual = true;
         for (int i = 0; i < 10; i++) {
             if (!slist.contains(i)) {
@@ -50,9 +50,9 @@ class SublistTest {
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
-        Sublist<Integer> slist = list.createSublist(0, 99);
+        IListReadOnly<Integer> slist = list.createSublist(0, 99);
         for (int i = 0; i < 100; i++) {
-            if (slist.indexOf(i) != i) actual = false;
+            if (slist.lastIndexOf(i) != i) actual = false;
         }
         assertTrue(actual);
     }

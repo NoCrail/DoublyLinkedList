@@ -1,14 +1,12 @@
 
-public class Sublist<T> extends Node<T> implements IListRO<T> {
+public class Sublist<T>  implements IListReadOnly<T> {
 
 
     protected Node<T> head;
     protected Node<T> tail;
     protected int count;
 
-    Sublist(T in, Node<T> next, Node<T> prev) {
-        super(in, next, prev);
-    }
+
 
     Sublist() {
         head=null;
@@ -24,25 +22,19 @@ public class Sublist<T> extends Node<T> implements IListRO<T> {
         return count;
     }
 
+    protected Sublist(Node<T> start, Node<T> finish, int size){
+        head = start;
+        tail = finish;
+        count = size;
+    }
 
     /**
      * @param element - input parameter
      * @throws IllegalArgumentException - in case of an argument value is null.
      */
-    protected void add(T element) throws IllegalArgumentException {      //AddToTail
-        if (element == null) throw new IllegalArgumentException();
-        Node<T> temp = new Node<T>(element, null, tail);
-        if (tail != null) tail.next = temp;
-        tail = temp;
-        if (head == null) {
-            head = temp;
-        }
-        count++;
-    }
 
-    //add
     public boolean contains(T element) {
-        return (indexOf(element) != -1);
+        return (lastIndexOf(element) != -1);
     }
 
     public String printForward() {
@@ -60,7 +52,7 @@ public class Sublist<T> extends Node<T> implements IListRO<T> {
      * @param element value to find
      * @return int number of last element in list or -1 if value not found
      */
-    public int indexOf(T element) {    //последнее вхождение
+    public int lastIndexOf(T element) {    //последнее вхождение
         int result = -1;
         int i = 0;
         Node<T> tmp = head;

@@ -1,32 +1,37 @@
 public class DoubleLinkedList<T> extends Sublist<T>  implements IList<T> {
 
 
-    DoubleLinkedList(T in, Node<T> next, Node<T> prev) {
-        super(in, next, prev);
-    }
 
-    DoubleLinkedList(){}
+
+
 
 //интерфейс сделать тк длолжен появится метод sublist с 3 по 8 элементы список и этот подсписок sublis mutable
 
 
 
 
-    public DoubleLinkedList<T> createMutableSublist(int start, int finish) throws IndexOutOfBoundsException{
+    public IList<T> createMutableSublist(int start, int finish) throws IndexOutOfBoundsException{
         DoubleLinkedList<T> mlist = new DoubleLinkedList<>();
-        mlist.head=this.head;
-        mlist.tail=this.tail;
+
+
+        if((start<0)||(finish>count)) throw new IndexOutOfBoundsException();
 
         Node<T> tmp = head;
         int i=0;
-        mlist.count=finish-start+1;
+        mlist.count=0;
+        boolean counter = false;
         while (tmp != null) {
             if (i==start) {
                 mlist.head=tmp;
+                counter=true;
+
             }
             if (i==finish) {
                 mlist.tail=tmp;
+                mlist.count++;
+                counter = false;
             }
+            if(counter) mlist.count++;
             tmp = tmp.next;
             i++;
         }
@@ -34,27 +39,39 @@ public class DoubleLinkedList<T> extends Sublist<T>  implements IList<T> {
     }
 
 
-    public Sublist<T> createSublist(int start, int finish) throws IndexOutOfBoundsException {
-        Sublist<T> slist = new Sublist<>();
-        if ((start > count) || (finish > count)) throw new IndexOutOfBoundsException();
+    public IListReadOnly<T> createSublist(int start, int finish) throws IndexOutOfBoundsException {
+
         if (finish < start) {
             int a = finish;
             finish = start;
             start = a;
-        } //поменять местами если перепутаны границы
-        Node<T> tmp = head;
-        int i = 0;
+        }
+        if ((start > count) || (finish > count)) throw new IndexOutOfBoundsException();
 
-        while (tmp != null) {
-            if ((i <= finish) && (i >= start)) {
-                slist.add(tmp.data);
+        Node<T> tmphead = null;
+        Node<T> tmptail = null ;
+        Node<T> tmp = head;
+        boolean counter = false;
+        int i = 0;
+        while (tmp!=null){
+            if (i==start){
+                counter=true;
+                tmphead=tmp;
+            }
+            if (i==finish){
+                tmptail=tmp;
+                i++;
+                counter=false;
+
+            }
+            if(counter){
+                i++;
+
             }
             tmp = tmp.next;
-            i++;
         }
 
-
-        return slist;
+        return new Sublist<T>(tmphead, tmptail, i);
     }
 
    /* public int count() {
@@ -83,13 +100,10 @@ public class DoubleLinkedList<T> extends Sublist<T>  implements IList<T> {
         count = 0;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return count==0;
-    }
+
 
     public boolean contains(T element) {
-        return (indexOf(element)!=-1);
+        return (lastIndexOf(element)!=-1);
     }
 
 
@@ -111,7 +125,7 @@ public class DoubleLinkedList<T> extends Sublist<T>  implements IList<T> {
      * @param element value to find
      * @return int number of last element in list or -1 if value not found
      */
-    public int indexOf(T element) {    //последнее вхождение
+    public int lastIndexOf(T element) {    //последнее вхождение
         int result = -1;
         int i = 0;
         Node<T> tmp = head;
@@ -125,7 +139,9 @@ public class DoubleLinkedList<T> extends Sublist<T>  implements IList<T> {
         return result;
     }
 
-    public void insert(int index, T element) {
+    public void insert(int index, T element) throws IndexOutOfBoundsException {
+
+        if(index>count) throw new IndexOutOfBoundsException();
 
         Node<T> current;
         Node<T> tmp;
@@ -141,7 +157,7 @@ public class DoubleLinkedList<T> extends Sublist<T>  implements IList<T> {
 
     public void remove(T element) {
 
-        int index = indexOf(element);
+        int index = lastIndexOf(element);
         Node<T> current = searchByIndex(index);
         if (current == null)
             throw new IndexOutOfBoundsException();  //System.out.println("Тут должна быть нормальная обработка исключения, но обобщенный класс запрещает так что вот смайлик :-)"); else {

@@ -1,4 +1,4 @@
-public interface IListRO<T> {
+public interface IListReadOnly<T> {
 
 
     int count();
@@ -12,5 +12,5 @@ public interface IListRO<T> {
     boolean contains(T value);
 
 
-    int indexOf(T value);
+    int lastIndexOf(T value);
 }

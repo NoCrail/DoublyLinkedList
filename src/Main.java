@@ -8,8 +8,8 @@ public class Main {
             list.add(i);
         }
         System.out.println(list.printForward());
-        slist = list.createSublist(-1,-3);
-        System.out.println(slist.printForward());  // можкет пригодится для тестов
+        //slist = list.createSublist(-1,-3);
+        //System.out.println(slist.printForward());  // можкет пригодится для тестов
         //DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         list.add(2);
         System.out.println(list.printForward());
